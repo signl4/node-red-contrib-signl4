@@ -1,0 +1,27 @@
+{
+    "author": {
+        "name": "Derdack GmbH"
+    },
+    "name": "node-red-contrib-signl4",
+    "version": "1.0.0",
+    "description": "SIGNL4 – IoT and IT On-Call Alerting and Duty Scheduling with Push Notifications, SMS and Voice Calls",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/signl4/node-red-contrib-signl4"
+    },
+    "dependencies": {
+        "https": "^1.0.0"
+    },
+    "keywords": [
+        "node-red",
+        "signl4",
+        "iot",
+        "alert"
+    ],
+    "node-red": {
+        "nodes": {
+            "SIGNL4 Alerting": "signl4.js"
+        }
+    }
+}

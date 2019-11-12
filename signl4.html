@@ -1,0 +1,125 @@
+<!-- 
+MIT License
+Copyright (c) 2019 Derdack GmbH
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType('SIGNL4',{
+        category: 'SIGNL4',
+        color: '#32B2EA',
+        defaults: {
+            name : {value:"SIGNL4 Alerting"},
+			teamSecret : {type: "text", required: true},
+			alertSubject : {type: "text"},
+			alertBody : {type: "text"},
+			alertS4Service : {type: "text"},
+			alertS4Location : {type: "text"},
+			alertS4AlertingScenario : {type: "text", value: 'single_ack'},
+			alertS4ExternalID : {type: "text"}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "signl4.png",
+		paletteLabel: "SIGNL4 Alert",
+        label: function() {
+            return this.name||"SIGNL4";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="SIGNL4">
+
+	<div class="form-row">
+     <label for="node-input-teamSecret"><i class="icon-tag"></i> Team Secret</label>
+     <input type="password" id="node-input-teamSecret">
+ 	</div>
+		<div class="form-row">
+        <label for="node-input-alertSubject"><i class="icon-tag"></i> Subject</label>
+        <input type="text" id="node-input-alertSubject" placeholder="SIGNL4 Alert">
+    </div>
+	<div class="form-row">
+        <label for="node-input-alertBody"><i class="icon-tag"></i> Alert Text</label>
+        <input type="text" id="node-input-alertBody" placeholder="">
+    </div>
+	<div class="form-row">
+        <label for="node-input-alertS4Service"><i class="icon-tag"></i> SIGNL4 Service</label>
+        <input type="text" id="node-input-alertS4Service" placeholder="">
+    </div>
+	<div class="form-row">
+        <label for="node-input-alertS4Location"><i class="icon-tag"></i> SIGNL4 Location</label>
+        <input type="text" id="node-input-alertS4Location" placeholder="">
+    </div>
+	<div class="form-row">
+        <label for="node-input-alertS4AlertingScenario"><i class="icon-tag"></i> SIGNL4 Alerting Scenario</label>
+        <select id="node-input-alertS4AlertingScenario" value="single_ack">
+		<option value="single_ack" selected>single_ack</option>
+		<option value="multi_ack">multi_ack</option>
+		</select>
+    </div>
+	<div class="form-row">
+        <label for="node-input-alertS4ExternalID"><i class="icon-tag"></i> SIGNL4 External ID</label>
+        <input type="text" id="node-input-alertS4ExternalID" placeholder="">
+    </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="SIGNL4">
+    
+	<h3>SIGNL4 – IoI and IT On-Call Alerting and Duty Scheduling</h3>
+	<p>
+	In case of critical incidents in 24/7 IoT or IT operations with Node-RED, SIGNL4 is your tool for instant mobile alerting. SIGNL4 adds critical mobile alerting to Node-RED in no time. It bridges the ‘last mile’ from Node-RED to IoT or IT staff and on-call engineers.
+	</p>
+	<p>
+	Upon critical events it notifies team members reliably through persistent mobile push, text and voice calls with acknowledgement, tracking and escalation. Built-in duty scheduling provides for convenient on-call planning and seamless routing of critical alerts to the right people at the right time.
+	</p>
+	<p>
+	SIGNL4 thus provides for an up to 10x faster response to critical alerts, major incidents and urgent service requests.
+	</p>
+	<p>
+	Download the app and get started at <a href='https://www.signl4.com'>signl4.com</a>.
+	</p>
+	
+	<h3>How it works?</h3>
+	<p>
+	
+	</p>	
+	<p>
+	Triggers a new alert for your SIGNL4 team. It will be displayed in the alert overview in the mobile app and online or on-duty people will receive an alert notification. You can find a full description at <a href='https://www.signl4.com/developers/webhook/inbound/#!/Events/RaiseEvent'>signl4.com</a>.
+	<p>
+	<h4>Configuration</h4>
+	<p>
+	The only required value in the configuration is your SIGNL4 Team Secret. The other parameters can be used as default values or they can be overridden by the input parameters (see below).
+	</p>
+	<h4>Inputs</h4>
+	<p>
+	The body of this request is a JSON object (msg.payload) of your choice. SIGNL4 does not require a specific schema. For example you can use msg.Subject for the subject and msg.payload.Body for the notification text.
+	</p>
+	<p>
+	However, you can include the following parameters to enrich your alert or to influence its processing as follows:
+	</p>
+	<p>
+	<b>msg.payload.X-S4-Service</b>: Assigns the alert to the service/system category with the specified name.
+	</p>
+	<p>
+	<b>msg.payload.X-S4-Location</b>: Transmit location information ('latitude, longitude') with your event and display a map in the mobile app.
+	</p>
+	<p>
+	<b>msg.payload.X-S4-AlertingScenario</b>: Pass 'single_ack' if only one persons needs to confirm this alert. Pass 'multi_ack' in case this alert must be confirmed by the number of people who are on duty at the time this alert is raised.
+	</p>
+	<p>
+	<b>msg.payload.X-S4-ExternalID</b>: If the event originates from a record in a 3rd party system, use this parameter to pass the unique ID of that record. That ID will be communicated in outbound webhook notifications from SIGNL4, which is great for correlation / synchronization of that record with the alert.
+	</p>
+	<p>
+	<b>msg.payload.X-S4-Filtering</b>: Specify a boolean value of true or false to apply event filtering for this event, or not. If set to true, the event will only trigger a notification to the team, if it contains at least one keyword from one of your services and system categories (i.e. it is whitelisted).
+	</p>
+	<h4>Outputs</h4>
+	<p>
+	The output is the SIGNL4 event ID if the alert was transmitted successfully. The following is an example of the response.
+	</p>
+	<code>
+	{
+	  "eventId": "2518287496003329336_737e2711-fe38-469b-b1dc-f812eac5cc35"
+	}
+	</code>
+
+</script>
