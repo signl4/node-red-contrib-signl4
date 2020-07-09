@@ -24,6 +24,8 @@ https (https://www.npmjs.com/package/https)
 
 Triggers a new alert for your SIGNL4 team. It will be displayed in the alert overview in the mobile app and online or on-duty people will receive an alert notification. You can find a full description at <a href=https://www.signl4.com/developers/webhook/inbound/#!/Events/RaiseEvent>signl4.com</a>.
 
+## Node: SIGN4 Alert
+
 ### Configuration
 The only required value in the configuration is your SIGNL4 Team Secret. The other parameters can be used as default values or they can be overridden by the input parameters (see below).
 
