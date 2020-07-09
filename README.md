@@ -35,11 +35,11 @@ The body of this request is a JSON object (msg.payload) of your choice. SIGNL4 d
 
 However, you can include the following parameters to enrich your alert or to influence its processing as follows:
 
-msg.payload.X-S4-Service: Assigns the alert to the service/system category with the specified name.
-msg.payload.X-S4-Location: Transmit location information ('latitude, longitude') with your event and display a map in the mobile app.
-msg.payload.X-S4-AlertingScenario: Pass 'single_ack' if only one persons needs to confirm this alert. Pass 'multi_ack' in case this alert must be confirmed by the number of people who are on duty at the time this alert is raised.
-msg.payload.X-S4-ExternalID: If the event originates from a record in a 3rd party system, use this parameter to pass the unique ID of that record. That ID will be communicated in outbound webhook notifications from SIGNL4, which is great for correlation / synchronization of that record with the alert.
-msg.payload.X-S4-Filtering: Specify a boolean value of true or false to apply event filtering for this event, or not. If set to true, the event will only trigger a notification to the team, if it contains at least one keyword from one of your services and system categories (i.e. it is whitelisted).
+msg.payload.X-S4-Service: Assigns the alert to the service/system category with the specified name.  
+msg.payload.X-S4-Location: Transmit location information ('latitude, longitude') with your event and display a map in the mobile app.  
+msg.payload.X-S4-AlertingScenario: Pass 'single_ack' if only one persons needs to confirm this alert. Pass 'multi_ack' in case this alert must be confirmed by the number of people who are on duty at the time this alert is raised.  
+msg.payload.X-S4-ExternalID: If the event originates from a record in a 3rd party system, use this parameter to pass the unique ID of that record. That ID will be communicated in outbound webhook notifications from SIGNL4, which is great for correlation / synchronization of that record with the alert.  
+msg.payload.X-S4-Filtering: Specify a boolean value of true or false to apply event filtering for this event, or not. If set to true, the event will only trigger a notification to the team, if it contains at least one keyword from one of your services and system categories (i.e. it is whitelisted).  
 
 Here is an example payload:
 
