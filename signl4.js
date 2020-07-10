@@ -1,14 +1,17 @@
 // MIT License
-// Copyright (c) 2019 Derdack GmbH
+// Copyright (c) 2020 Derdack GmbH
+
 
 module.exports = function(RED) {
-    function SIGNL4(config) {
+
+	// Send alert
+	function SIGNL4(config) {
 		RED.nodes.createNode(this,config);
 		var node = this;
 		node.on('input', function(msg) {
 
 		// Create or change values if required
-		if (msg.payload == undefined) {
+		if ((msg.payload == undefined) || (msg.payload.Subject == undefined)) {
 			msg.payload = {
 				'Subject': '',
 				'Body': '',
@@ -55,6 +58,9 @@ module.exports = function(RED) {
 			msg.payload['X-S4-ExternalID'] = config.alertS4ExternalID;
 		}
 
+		// New alert
+		msg.payload['X-S4-Status'] = 'new'
+
 		// Send alert
 		// msg.payload = msg.payload.toLowerCase();
 		sendSIGNL4Alert(node, config.teamSecret, msg.payload);
@@ -66,8 +72,59 @@ module.exports = function(RED) {
 		node.send({payload:'OK', statusCodenumber: 200});
 
         });
-    }
+	}
+
+	// Resolve alert
+	function SIGNL4Resolve(config) {
+		RED.nodes.createNode(this,config);
+		var node = this;
+		node.on('input', function(msg) {
+
+		// Create or change values if required
+		if ((msg.payload == undefined) || (msg.payload.Subject == undefined)) {
+			msg.payload = {
+				'Subject': '',
+				'Body': '',
+				'X-S4-ExternalID': ''
+			};
+		}
+
+		if (msg.payload.Subject == undefined) {
+			msg.payload.Subject = '';
+		}
+		if (msg.payload.Subject == '') {
+			msg.payload.Subject = config.alertSubject;
+		}
+		if (msg.payload.Body == undefined) {
+			msg.payload.Body = '';
+		}
+		if (msg.payload.Body == '') {
+			msg.payload.Body = config.alertBody;
+		}
+		if (msg.payload['X-S4-ExternalID'] == '') {
+			msg.payload['X-S4-ExternalID'] = config.alertS4ExternalID;
+		}
+
+		// Resolve
+		msg.payload['X-S4-Status'] = 'resolved'
+
+		// Send alert
+		// msg.payload = msg.payload.toLowerCase();
+		sendSIGNL4Alert(node, config.teamSecret, msg.payload);
+
+		if (node.done) {
+			node.done();
+		}
+		
+		node.send({payload:'OK', statusCodenumber: 200});
+
+        });
+	}
+
+
     RED.nodes.registerType("SIGNL4", SIGNL4);
+	
+	RED.nodes.registerType("SIGNL4 Resolve", SIGNL4Resolve);
 
 	function sendSIGNL4Alert(node, teamsecret, body) {
 		
@@ -101,7 +158,7 @@ module.exports = function(RED) {
 					} else {
 						// Error
 						node.log('SIGNL4 alert failed.');
-						var msg = { payload: { error: 'SIGNL4 alert failed.' }};
+						var msg = { payload: { error: 'SIGNL4 alert failed. Status code: ' + res.statusCode }};
 						node.error(msg);
 					} 
 				});
@@ -125,5 +182,4 @@ module.exports = function(RED) {
 		}
 
     }
-
 }

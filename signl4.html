@@ -1,6 +1,6 @@
 <!-- 
 MIT License
-Copyright (c) 2019 Derdack GmbH
+Copyright (c) 2020 Derdack GmbH
 -->
 
 <script type="text/javascript">
@@ -21,6 +21,25 @@ Copyright (c) 2019 Derdack GmbH
         outputs:1,
         icon: "signl4.png",
 		paletteLabel: "SIGNL4 Alert",
+        label: function() {
+            return this.name||"SIGNL4";
+        }
+    });
+
+	RED.nodes.registerType('SIGNL4 Resolve',{
+        category: 'SIGNL4',
+        color: '#32B2EA',
+        defaults: {
+            name : {value:"SIGNL4 Resolve"},
+			teamSecret : {type: "text", required: true},
+			alertSubject : {type: "text"},
+			alertBody : {type: "text"},
+			alertS4ExternalID : {type: "text"}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "resolve.png",
+		paletteLabel: "Resolve Alert",
         label: function() {
             return this.name||"SIGNL4";
         }
@@ -56,6 +75,29 @@ Copyright (c) 2019 Derdack GmbH
 		<option value="multi_ack">multi_ack</option>
 		</select>
     </div>
+	<div class="form-row">
+        <label for="node-input-alertS4ExternalID"><i class="icon-tag"></i> SIGNL4 External ID</label>
+        <input type="text" id="node-input-alertS4ExternalID" placeholder="">
+    </div>
+
+</script>
+
+<script type="text/x-red" data-template-name="SIGNL4 Resolve">
+
+	<div class="form-row">
+     <label for="node-input-teamSecret"><i class="icon-tag"></i> Team Secret</label>
+     <input type="password" id="node-input-teamSecret">
+	<!--
+ 	</div>
+		<div class="form-row">
+        <label for="node-input-alertSubject"><i class="icon-tag"></i> Subject</label>
+        <input type="text" id="node-input-alertSubject" placeholder="SIGNL4 Alert">
+    </div>
+	<div class="form-row">
+        <label for="node-input-alertBody"><i class="icon-tag"></i> Alert Text</label>
+        <input type="text" id="node-input-alertBody" placeholder="">
+    </div>
+	-->
 	<div class="form-row">
         <label for="node-input-alertS4ExternalID"><i class="icon-tag"></i> SIGNL4 External ID</label>
         <input type="text" id="node-input-alertS4ExternalID" placeholder="">
