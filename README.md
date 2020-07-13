@@ -63,3 +63,29 @@ The output is the SIGNL4 event ID if the alert was transmitted successfully. The
   "eventId": "2518287496003329336_737e2711-fe38-469b-b1dc-f812eac5cc35"
 }
 ```
+
+## Node: Resolve
+
+This is to close an alert previosly created with the same "X-S4-ExternalID".
+
+However, you can include the following parameters to enrich your alert or to influence its processing as follows:
+
+msg.payload.X-S4-ExternalID: If the event originates from a record in a 3rd party system, use this parameter to pass the unique ID of that record. That ID will be communicated in outbound webhook notifications from SIGNL4, which is great for correlation / synchronization of that record with the alert.  
+
+Here is an example payload:
+
+```
+{
+	"X-S4-ExternalID": "AB12"
+}
+```
+
+### Outputs
+
+The output is the SIGNL4 event ID if the alert was transmitted successfully. The following is an example of the response.
+
+```
+{
+  "eventId": "2518287496003329336_737e2711-fe38-469b-b1dc-f812eac5cc35"
+}
+`
