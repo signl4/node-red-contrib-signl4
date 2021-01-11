@@ -2,76 +2,6 @@
 // Copyright (c) 2021 Derdack GmbH
 
 module.exports = function(RED) {
-    function SIGNL4(config) {
-		RED.nodes.createNode(this,config);
-		var node = this;
-		node.on('input', function(msg) {
-
-		// Create or change values if required
-		if (msg.payload == undefined) {
-			msg.payload = {
-				'Subject': '',
-				'Body': '',
-				'X-S4-Service': '',
-				'X-S4-Location': '',
-				'X-S4-AlertingScenario': '',
-				'X-S4-ExternalID': ''
-			};
-		}
-		if (msg.payload.Subject == undefined) {
-			msg.payload.Subject = '';
-		}
-		if (msg.payload.Subject == '') {
-			msg.payload.Subject = config.alertSubject;
-		}
-		if (msg.payload.Body == undefined) {
-			msg.payload.Body = '';
-		}
-		if (msg.payload.Body == '') {
-			msg.payload.Body = config.alertBody;
-		}
-		if (msg.payload['X-S4-Service'] == undefined) {
-			msg.payload['X-S4-Service'] = '';
-		}
-		if (msg.payload['X-S4-Service'] == '') {
-			msg.payload['X-S4-Service'] = config.alertS4Service;
-		}
-		if (msg.payload['X-S4-Location'] == undefined) {
-			msg.payload['X-S4-Location'] = '';
-		}
-		if (msg.payload['X-S4-Location'] == '') {
-			msg.payload['X-S4-Location'] = config.alertS4Location;
-		}
-		if (msg.payload['X-S4-AlertingScenario'] == undefined) {
-			msg.payload['X-S4-AlertingScenario'] = '';
-		}
-		if (msg.payload['X-S4-AlertingScenario'] == '') {
-			msg.payload['X-S4-AlertingScenario'] = config.alertS4AlertingScenario;
-		}
-		if (msg.payload['X-S4-ExternalID'] == undefined) {
-			msg.payload['X-S4-ExternalID'] = '';
-		}
-		if (msg.payload['X-S4-ExternalID'] == '') {
-			msg.payload['X-S4-ExternalID'] = config.alertS4ExternalID;
-		}
-
-		// Send alert
-		// msg.payload = msg.payload.toLowerCase();
-		sendSIGNL4Alert(node, config.teamSecret, msg.payload);
-
-		if (node.done) {
-			node.done();
-		}
-		
-		node.send({payload:'OK', statusCodenumber: 200});
-
-        });
-    }
-    RED.nodes.// MIT License
-// Copyright (c) 2020 Derdack GmbH
-
-
-module.exports = function(RED) {
 
 	// Send alert
 	function SIGNL4(config) {
@@ -87,7 +17,8 @@ module.exports = function(RED) {
 				'X-S4-Service': '',
 				'X-S4-Location': '',
 				'X-S4-AlertingScenario': '',
-				'X-S4-ExternalID': ''
+				'X-S4-ExternalID': '',
+				'X-S4-SourceSystem': 'Node-RED'
 			};
 		}
 		if (msg.payload.Subject == undefined) {
@@ -142,6 +73,7 @@ module.exports = function(RED) {
 
         });
 	}
+	RED.nodes.registerType("SIGNL4", SIGNL4);
 
 	// Resolve alert
 	function SIGNL4Resolve(config) {
@@ -154,7 +86,8 @@ module.exports = function(RED) {
 			msg.payload = {
 				'Subject': '',
 				'Body': '',
-				'X-S4-ExternalID': ''
+				'X-S4-ExternalID': '',
+				'X-S4-SourceSystem': 'Node-RED'
 			};
 		}
 
@@ -179,7 +112,7 @@ module.exports = function(RED) {
 
 		// Send alert
 		// msg.payload = msg.payload.toLowerCase();
-		SIGNL4Alert(node, config.teamSecret, msg.payload);
+		sendSIGNL4Alert(node, config.teamSecret, msg.payload);
 
 		if (node.done) {
 			node.done();
@@ -191,7 +124,7 @@ module.exports = function(RED) {
 	}	
 	RED.nodes.registerType("SIGNL4 Resolve", SIGNL4Resolve);
 
-	function SIGNL4Alert(node, teamsecret, body) {
+	function sendSIGNL4Alert(node, teamsecret, body) {
 		
 		try {
 
@@ -247,5 +180,4 @@ module.exports = function(RED) {
 		}
 
     }
-	RED.nodes.registerType("SIGNL4", SIGNL4);
 }
