@@ -179,7 +179,7 @@ module.exports = function(RED) {
 
 		// Send alert
 		// msg.payload = msg.payload.toLowerCase();
-		sendSIGNL4Alert(node, config.teamSecret, msg.payload);
+		SIGNL4Alert(node, config.teamSecret, msg.payload);
 
 		if (node.done) {
 			node.done();
@@ -188,7 +188,7 @@ module.exports = function(RED) {
 		node.send({payload:'OK', statusCodenumber: 200});
 
         });
-	}
+	}	
 	RED.nodes.registerType("SIGNL4 Resolve", SIGNL4Resolve);
 
 	function SIGNL4Alert(node, teamsecret, body) {
