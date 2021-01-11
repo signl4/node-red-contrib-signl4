@@ -86,4 +86,4 @@ The output is the SIGNL4 event ID if the alert was transmitted successfully. The
 {
   "eventId": "2518287496003329336_737e2711-fe38-469b-b1dc-f812eac5cc35"
 }
-`
+```
