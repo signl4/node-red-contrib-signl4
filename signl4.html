@@ -15,6 +15,7 @@ Copyright (c) 2020 Derdack GmbH
 			alertS4Service : {type: "text"},
 			alertS4Location : {type: "text"},
 			alertS4AlertingScenario : {type: "text", value: 'single_ack'},
+			alertS4Filtering : {type: "bool", value: "false"},
 			alertS4ExternalID : {type: "text"}
         },
         inputs:1,
@@ -73,6 +74,14 @@ Copyright (c) 2020 Derdack GmbH
         <select id="node-input-alertS4AlertingScenario" value="single_ack">
 		<option value="single_ack" selected>single_ack</option>
 		<option value="multi_ack">multi_ack</option>
+		<option value="multi_ack">emergency</option>
+		</select>
+    </div>
+	<div class="form-row">
+		<label for="node-input-alertS4Filtering"><i class="icon-tag"></i> SIGNL4 Filtering</label>
+        <select id="node-input-alertS4Filtering" value="single_ack">
+		<option value="single_ack" selected>false</option>
+		<option value="multi_ack">true</option>
 		</select>
     </div>
 	<div class="form-row">
@@ -149,10 +158,22 @@ Copyright (c) 2020 Derdack GmbH
 	<b>msg.payload.X-S4-AlertingScenario</b>: Pass 'single_ack' if only one persons needs to confirm this alert. Pass 'multi_ack' in case this alert must be confirmed by the number of people who are on duty at the time this alert is raised.
 	</p>
 	<p>
+	<b>msg.payload.X-S4-Filtering</b>: Specify a boolean value of true or false to apply event filtering for this event, or not. If set to true, the event will only trigger a notification to the team, if it contains at least one keyword from one of your services and system categories (i.e. it is whitelisted).
+	</p>
+	<p>
 	<b>msg.payload.X-S4-ExternalID</b>: If the event originates from a record in a 3rd party system, use this parameter to pass the unique ID of that record. That ID will be communicated in outbound webhook notifications from SIGNL4, which is great for correlation / synchronization of that record with the alert.
 	</p>
 	<p>
-	<b>msg.payload.X-S4-Filtering</b>: Specify a boolean value of true or false to apply event filtering for this event, or not. If set to true, the event will only trigger a notification to the team, if it contains at least one keyword from one of your services and system categories (i.e. it is whitelisted).
+	<b>msg.payload.attachmentBase64Content1</b>: An optional attachment (image or audio file) in base64 format.
+	</p>
+	<p>
+	<b>msg.payload.attachmentMimeType1</b>: The MIME type, e.g. "image/jpeg" for the first attachment.
+	</p>
+	<p>
+	<b>msg.payload.attachmentBase64Content2</b>: An second optional attachment (image or audio file) in base64 format.
+	</p>
+	<p>
+	<b>msg.payload.attachmentMimeType2</b>: The MIME type, e.g. "image/jpeg" for the second attachment.
 	</p>
 	<h4>Outputs</h4>
 	<p>
