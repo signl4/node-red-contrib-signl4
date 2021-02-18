@@ -1,7 +1,7 @@
 {
   "author": "Derdack GmbH",
   "name": "node-red-contrib-signl4",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "SIGNL4 – IoT and IT On-Call Alerting and Duty Scheduling with Push Notifications, SMS and Voice Calls",
   "license": "MIT",
   "repository": {

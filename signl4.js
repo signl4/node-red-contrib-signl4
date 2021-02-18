@@ -13,7 +13,7 @@ module.exports = function(RED) {
 		var data = "";
 
 		// Create or change values if required
-		if ((msg.payload == undefined)) {
+		if (msg.payload == undefined) {
 			msg.payload = {
 				'Subject': '',
 				'Body': '',
@@ -179,13 +179,12 @@ module.exports = function(RED) {
 		node.on('input', function(msg) {
 
 		// Create or change values if required
-		if ((msg.payload == undefined) || (msg.payload.Subject == undefined)) {
+		if (msg.payload == undefined) {
 			msg.payload = {
 				'Subject': '',
 				'Body': '',
 				'X-S4-ExternalID': '',
-				'X-S4-Status': 'resolved',
-				'X-S4-SourceSystem': 'NodeRED'
+				'X-S4-Status': 'resolved'
 			};
 		}
 
@@ -209,6 +208,9 @@ module.exports = function(RED) {
 			msg.payload['X-S4-ExternalID'] = config.alertS4ExternalID;
 		}
 
+		// Resolved
+		msg.payload['X-S4-Status'] = 'resolved';
+		
 		// Send alert
 		// msg.payload = msg.payload.toLowerCase();
 		sendSIGNL4Alert(node, config.teamSecret, JSON.stringify(msg.payload), 'application/json');
