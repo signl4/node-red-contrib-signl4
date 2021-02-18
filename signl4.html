@@ -186,3 +186,46 @@ Copyright (c) 2020 Derdack GmbH
 	</code>
 
 </script>
+
+<script type="text/x-red" data-help-name="SIGNL4 Resolve">
+    
+	<h3>SIGNL4 – IoI and IT On-Call Alerting and Duty Scheduling</h3>
+	<p>
+	In case of critical incidents in 24/7 IoT or IT operations with Node-RED, SIGNL4 is your tool for instant mobile alerting. SIGNL4 adds critical mobile alerting to Node-RED in no time. It bridges the ‘last mile’ from Node-RED to IoT or IT staff and on-call engineers.
+	</p>
+	<p>
+	Upon critical events it notifies team members reliably through persistent mobile push, text and voice calls with acknowledgement, tracking and escalation. Built-in duty scheduling provides for convenient on-call planning and seamless routing of critical alerts to the right people at the right time.
+	</p>
+	<p>
+	SIGNL4 thus provides for an up to 10x faster response to critical alerts, major incidents and urgent service requests.
+	</p>
+	<p>
+	Download the app and get started at <a href='https://www.signl4.com'>signl4.com</a>.
+	</p>
+	
+	<h3>How it works?</h3>
+	<p>
+	
+	</p>	
+	<p>
+	Triggers a new alert for your SIGNL4 team. It will be displayed in the alert overview in the mobile app and online or on-duty people will receive an alert notification. You can find a full description at <a href='https://www.signl4.com/developers/webhook/inbound/#!/Events/RaiseEvent'>signl4.com</a>.
+	<p>
+	<h4>Configuration</h4>
+	<p>
+	The only required value in the configuration is your SIGNL4 Team Secret. The other parameters can be used as default values or they can be overridden by the input parameters (see below).
+	</p>
+	<h4>Inputs</h4>
+	<p>
+	<b>msg.payload.X-S4-ExternalID</b>: If the event originates from a record in a 3rd party system, use this parameter to pass the unique ID of that record. That ID will be communicated in outbound webhook notifications from SIGNL4, which is great for correlation / synchronization of that record with the alert. To resolve the alert this external ID needs to be the same as for the initial alert.
+	</p>
+	<h4>Outputs</h4>
+	<p>
+	The output is the SIGNL4 event ID if the alert was transmitted successfully. The following is an example of the response.
+	</p>
+	<code>
+	{
+	  "eventId": "2518287496003329336_737e2711-fe38-469b-b1dc-f812eac5cc35"
+	}
+	</code>
+
+</script>

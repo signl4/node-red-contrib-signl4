@@ -184,6 +184,7 @@ module.exports = function(RED) {
 				'Subject': '',
 				'Body': '',
 				'X-S4-ExternalID': '',
+				'X-S4-Status': 'resolved',
 				'X-S4-SourceSystem': 'NodeRED'
 			};
 		}
@@ -200,12 +201,13 @@ module.exports = function(RED) {
 		if (msg.payload.Body == '') {
 			msg.payload.Body = config.alertBody;
 		}
+		// X-S4-ExternalID
+		if (msg.payload['X-S4-ExternalID'] == undefined) {
+			msg.payload['X-S4-ExternalID'] = '';
+		}
 		if (msg.payload['X-S4-ExternalID'] == '') {
 			msg.payload['X-S4-ExternalID'] = config.alertS4ExternalID;
 		}
-
-		// Resolve
-		msg.payload['X-S4-Status'] = 'resolved'
 
 		// Send alert
 		// msg.payload = msg.payload.toLowerCase();
