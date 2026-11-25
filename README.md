@@ -6,6 +6,8 @@ A machine overheats, a cold storage temperature rises, a server goes offline or 
 
 [SIGNL4](https://www.signl4.com/) adds critical mobile alerting, incident response and on-call scheduling to your Node-RED flows, from Raspberry Pi projects to industrial automation and enterprise IT operations.
 
+![SIGNL4 Mobile App](signl4-node-red.png)
+
 ## Features and benefits
 
 - **Reliable mobile alerting:** Persistent app push notifications, SMS and voice calls.
